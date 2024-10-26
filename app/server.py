@@ -1,10 +1,25 @@
 from flask import Flask, jsonify
+from data_etl import read_file
+import re
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return jsonify(message="Hello, World!")
+    input_file = '../SAIDI_SAIFI_raw_FY24_Q4_v2.csv'
+    data = read_file(input_file)
+    return_data = {}
+    for k, v in data.items():
+        data = v['transmission']
+        district_data = {
+            row[0]: {
+                "SAIDI": row[1],
+                "SAIFI": row[2]
+            }
+            for row in data[2:]
+        }
+        return_data[k] = district_data
+    return jsonify(return_data)
 
 @app.route('/distribution')
 def distribution_index():
