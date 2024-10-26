@@ -5,13 +5,13 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 // Register the necessary components with Chart.js
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const Barchart = () => {
+const TransBarchart = () => {
   const [distributionData, setDistributionData] = useState([]);
   const [labels, setLabels] = useState([]);
 
   useEffect(() => {
     // Fetch data for distribution
-    fetch('http://127.0.0.1:5000/distribution')
+    fetch('http://127.0.0.1:5000/transmission')
       .then((response) => response.json())
       .then((data) => {
         // Extract the period (e.g., "Periodo de 01-01-2022 a 01-31-2022") and district data
@@ -33,7 +33,7 @@ const Barchart = () => {
     labels: labels, // Districts like 'AGUADILLA', 'ARECIBO', etc.
     datasets: [
       {
-        label: 'Distribution Data (SAIDI Periodo de 01-01-2022 a 01-31-2022)',
+        label: 'Transmission Data (SAIDI Periodo de 01-01-2022 a 01-31-2022)',
         data: distributionData,
         backgroundColor: 'rgba(255, 255, 255, 0.3)', // Adjusted to match theme
         borderColor: 'rgba(255, 255, 255, 0.7)',
@@ -58,7 +58,7 @@ const Barchart = () => {
       },
       title: {
         display: true,
-        text: 'Distribution Data (SAIDI) by District',
+        text: 'Transmission Data (SAIDI) by District',
         color: 'rgba(255, 255, 255, 0.85)', // Adjusted to match theme
         font: {
           size: 16,
@@ -106,4 +106,4 @@ const Barchart = () => {
   );
 };
 
-export default Barchart;
+export default TransBarchart;

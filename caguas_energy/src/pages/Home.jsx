@@ -1,6 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { Zap, Activity, MapPin, AlertTriangle, Map, InfoIcon, X, Clock, Users, Wifi, WifiOff, UserCog } from 'lucide-react';
+import Barchart from '../components/Barchart';
+import TransBarchart from '../components/transBar';
 
 const mockOutageData = [
   {
@@ -209,7 +211,7 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-white mb-6">
-              Real-Time Power Outage Tracking in Puerto Rico
+              Power Outage Tracking in Puerto Rico
             </h1>
             <p className="text-xl text-white mb-8">
               Stay informed about power outages in your area and get instant updates on restoration progress
@@ -222,6 +224,10 @@ const LandingPage = () => {
                 Subscribe to Alerts
               </button>
             </div>
+            <div className="mt-8">
+        <Barchart />
+        <TransBarchart />
+      </div>
           </div>
 
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
