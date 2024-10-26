@@ -9,10 +9,8 @@ def main():
     output_file = '../output.csv'
 
     # Process the CSV file to create the period table
-    period_table = data_etl.read_file(input_file)
+    period_table= data_etl.read_file(input_file)
 
-    # Save the period table to a new CSV file
-    data_etl.save_period_table_to_csv(period_table, output_file)
 
     print(f"Period table saved to {output_file}")
 

@@ -36,61 +36,38 @@ def read_file(filepath):
             ep+=8
             sp+=8
 
-        print(period_month)
-        print(period_table['Periodo de 06-01-2021 a 06-30-2021'])
-        print(period_table)
+        # print(period_month)
+        # # print(period_table['Periodo de 06-01-2021 a 06-30-2021'])
+        # print(period_table)
+        clean_data={}
         for period, table in period_table.items():
-            if table:
-                print(period)
+            if table and period:
+                # print(period)
                 distribution_header = table[2][:3]
                 transmission_header = table[2][4:]
 
                 # Extracting data for Distribution and Transmission
-                distribution_data = [distribution_header]
-                transmission_data = [transmission_header]
+                distribution_data = [[period]]
+                transmission_data = [[period]]
+                distribution_data.append(distribution_header)
+                transmission_data.append(transmission_header)
 
                 for row in table[3:]:
                     distribution_data.append(row[:3])
                     transmission_data.append(row[4:])
 
-                # Display the results
-                print("Distribution Data:")
-                for row in distribution_data:
-                    print(row)
-
-                print("\nTransmission Data:")
-                for row in transmission_data:
-                    print(row)
-
-        return period_table
+                clean_data[period] = {'transmission': transmission_data, 'distribution': distribution_data}
 
 
-def save_period_table_to_csv(period_table, output_file):
-    """Saves the period_table dictionary to a CSV file.
+                # # Display the results
+                # print("Distribution Data:")
+                # for row in distribution_data:
+                #     print(row)
 
-    Args:
-        period_table (dict): The dictionary containing period data.
-        output_file (str): The path to the output CSV file.
-    """
-    with open(output_file, mode='w', newline='') as file:
-        csv_writer = csv.writer(file)
+                # print("\nTransmission Data:")
+                # for row in transmission_data:
+                #     print(row)
+        print(clean_data)
+        return clean_data
 
-        # Write the header
-        csv_writer.writerow(['Period Month', 'Data'])
 
-        # Iterate over the period_table dictionary
-        for period_month, data_list in period_table.items():
-            # Write the period month
-            csv_writer.writerow([period_month])
-
-            # Write the data for the period month
-            for data in data_list:
-                csv_writer.writerow([''] + data)  # Indent data rows for clarity
-
-# Example usage
-period_table = {
-    'Periodo de 06-01-2021 a 06-30-2021': [['data1', 'data2'], ['data3', 'data4']],
-    'Periodo de 07-01-2021 a 07-31-2021': [['data5', 'data6'], ['data7', 'data8']]
-}
-
-save_period_table_to_csv(period_table, 'output.csv')
