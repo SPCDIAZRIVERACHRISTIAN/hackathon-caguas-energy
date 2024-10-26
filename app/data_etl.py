@@ -67,7 +67,7 @@ def read_file(filepath):
                 # print("\nTransmission Data:")
                 # for row in transmission_data:
                 #     print(row)
-        print(clean_data)
+        # print(clean_data)
         return clean_data
 
 
