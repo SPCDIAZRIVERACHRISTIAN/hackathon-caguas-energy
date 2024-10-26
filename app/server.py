@@ -14,6 +14,11 @@ def distribution_index():
     data = read_file(input_file)
     return_data = {}
     for k, v in data.items():
+        regex = r"\d{2}-\d{2}-\d{4}"
+        matches = re.finditer(regex, k, re.MULTILINE)
+        dates_list = []
+        for matchNum, match in enumerate(matches, start=1):
+            dates_list.append(match.group())
         data = v['distribution']
         district_data = {
             row[0]: {
@@ -22,7 +27,8 @@ def distribution_index():
             }
             for row in data[2:]
         }
-        return_data[k] = district_data
+        if len(dates_list) > 0:
+            return_data[dates_list[0]] = district_data
     return jsonify(return_data)
 
 @app.route('/transmission')
@@ -31,6 +37,11 @@ def transmission_index():
     data = read_file(input_file)
     return_data = {}
     for k, v in data.items():
+        regex = r"\d{2}-\d{2}-\d{4}"
+        matches = re.finditer(regex, k, re.MULTILINE)
+        dates_list = []
+        for matchNum, match in enumerate(matches, start=1):
+            dates_list.append(match.group())
         data = v['transmission']
         district_data = {
             row[0]: {
@@ -39,7 +50,10 @@ def transmission_index():
             }
             for row in data[2:]
         }
-        return_data[k] = district_data
+        print(dates_list)
+
+        if len(dates_list) > 0:
+            return_data[dates_list[0]] = district_data
     return jsonify(return_data)
 
 @app.route('/saidi')
