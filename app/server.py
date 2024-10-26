@@ -55,4 +55,4 @@ def caidi_index():
     return jsonify(message="CAIDI Index")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=3000)
