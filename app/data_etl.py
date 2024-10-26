@@ -39,6 +39,28 @@ def read_file(filepath):
         print(period_month)
         print(period_table['Periodo de 06-01-2021 a 06-30-2021'])
         print(period_table)
+        for period, table in period_table.items():
+            if table:
+                print(period)
+                distribution_header = table[2][:3]
+                transmission_header = table[2][4:]
+
+                # Extracting data for Distribution and Transmission
+                distribution_data = [distribution_header]
+                transmission_data = [transmission_header]
+
+                for row in table[3:]:
+                    distribution_data.append(row[:3])
+                    transmission_data.append(row[4:])
+
+                # Display the results
+                print("Distribution Data:")
+                for row in distribution_data:
+                    print(row)
+
+                print("\nTransmission Data:")
+                for row in transmission_data:
+                    print(row)
 
         return period_table
 
