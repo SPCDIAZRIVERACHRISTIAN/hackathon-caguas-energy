@@ -225,7 +225,8 @@ const LandingPage = () => {
               </button>
             </div>
             <div className="mt-8">
-        <Barchart />
+
+        <div className='mb-4'><Barchart /></div>
         <TransBarchart />
       </div>
           </div>
