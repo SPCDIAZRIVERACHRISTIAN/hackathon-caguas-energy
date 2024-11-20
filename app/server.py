@@ -1,16 +1,19 @@
 from flask import Flask, jsonify
-from data_etl import read_file
-import re
+from data_etl import read_file, clean_data
+import re, json
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/')
-def hello_world():
-    return jsonify("Welcome to the Caguas Energy API")
+last_report = '../SAIDI_SAIFI_raw_FY24_Q4_v2.csv'
+temp_data = read_file(last_report)
+clean_data = clean_data(temp_data)
 
-@app.route('/distribution')
+# ------------------------ #
+# OLD APPROACH
+# ------------------------ #
+'''@app.route('/distribution')
 def distribution_index():
     input_file = '../SAIDI_SAIFI_raw_FY24_Q4_v2.csv'
     data = read_file(input_file)
@@ -56,19 +59,47 @@ def transmission_index():
 
         if len(dates_list) > 0:
             return_data[dates_list[0]] = district_data
-    return jsonify(return_data)
+    return jsonify(return_data)'''
 
-@app.route('/saidi')
-def saidi_index():
-    return jsonify(message="SAIDI Index")
 
-@app.route('/saifi')
-def saifi_index():
-    return jsonify(message="SAIFI Index")
 
-@app.route('/caidi')
-def caidi_index():
-    return jsonify(message="CAIDI Index")
+# ------------------------ #
+# NUEVO...
+# En español, puñeee...
+# ------------------------ #
+
+@app.route('/')
+def hola_mundito():
+    welcome = "Este API proporciona acceso a datos sobre los índices de confiabilidad eléctrica en Puerto Rico (SAIDI, SAIFI, y CAIFI). Estos índices permiten evaluar la duración y frecuencia de interrupciones del servicio eléctrico."
+    response = app.response_class(
+        response=json.dumps({"message": welcome}, ensure_ascii=False).encode('utf8'),
+        mimetype='application/json; charset=utf-8'
+    )
+    return response
+
+@app.route('/indices/todos')
+def todos_indices():
+    data = clean_data
+    # Requerido para incluir valores en español
+    response = jsonify(data)
+    response.headers['Content-Type'] = 'application/json; charset=utf-8'
+    return response
+
+@app.route('/indices/todos/por_periodos')
+def indices_periodos():
+    data = clean_data['by_period']    
+    # Requerido para incluir valores en español
+    response = jsonify(data)
+    response.headers['Content-Type'] = 'application/json; charset=utf-8'
+    return response
+
+@app.route('/indices/todos/por_regiones')
+def indices_regiones():
+    data = clean_data['by_region']    
+    # Requerido para incluir valores en español
+    response = jsonify(data)
+    response.headers['Content-Type'] = 'application/json; charset=utf-8'
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000)
