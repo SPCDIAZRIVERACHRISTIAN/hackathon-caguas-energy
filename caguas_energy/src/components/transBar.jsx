@@ -6,35 +6,36 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const TransBarchart = () => {
-  const [distributionData, setDistributionData] = useState([]);
+  const [transmissionData, setTransmissionData] = useState([]);
   const [labels, setLabels] = useState([]);
 
   useEffect(() => {
-    // Fetch data for distribution
+    // Fetch transmission data
     fetch('http://127.0.0.1:5000/indices/todos')
       .then((response) => response.json())
       .then((data) => {
-        // Extract the period (e.g., "Periodo de 01-01-2022 a 01-31-2022") and district data
-        const period = Object.keys(data)[0];
-        const districtData = data[period];
+        // Extract data from the "transmision" key in "by_period"
+        const periodData = data["by_period"]["01-31-2022"]["transmision"];
 
-        // Set the labels to the names of the districts
-        const districtNames = Object.keys(districtData);
+        // Extract district names (labels) and SAIDI values (data)
+        const districtNames = Object.keys(periodData);
+        const saidiValues = districtNames.map(
+          (district) => parseFloat(periodData[district]["saidi"]) // Parse SAIDI values
+        );
+
+        // Update state
         setLabels(districtNames);
-
-        // Extract SAIDI values for each district
-        const saifiValues = districtNames.map(district => parseFloat(districtData[district]["SAIDI"]));
-        setDistributionData(saifiValues);
+        setTransmissionData(saidiValues);
       })
-      .catch((error) => console.error('Error fetching distribution data:', error));
+      .catch((error) => console.error('Error fetching transmission data:', error));
   }, []);
 
   const data = {
     labels: labels, // Districts like 'AGUADILLA', 'ARECIBO', etc.
     datasets: [
       {
-        label: 'Transmission Data (SAIDI Periodo de 01-01-2022 a 01-31-2022)',
-        data: distributionData,
+        label: 'Transmission Data (SAIDI Periodo 01-01-2022 to 01-31-2022)',
+        data: transmissionData, // SAIDI values
         backgroundColor: 'rgba(255, 255, 255, 0.3)', // Adjusted to match theme
         borderColor: 'rgba(255, 255, 255, 0.7)',
         borderWidth: 1,
