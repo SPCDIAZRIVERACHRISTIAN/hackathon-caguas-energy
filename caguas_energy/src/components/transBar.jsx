@@ -5,6 +5,15 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 // Register the necessary components with Chart.js
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
+/*
+Todo:
+1- poder visualizar los demas meses en la tabla de transmission
+2- poder visualizar los demas meses en la tabla de distribution
+3- Crear una tabla de distribucion
+4- poder circular entre los meses en la tabla  o poder seleeccionar
+5- Opcional crear una base de tatos para almacenar la data
+*/
+
 const TransBarchart = () => {
   const [transmissionData, setTransmissionData] = useState([]);
   const [labels, setLabels] = useState([]);

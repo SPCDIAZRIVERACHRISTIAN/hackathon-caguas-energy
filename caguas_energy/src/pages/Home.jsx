@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { Zap, Activity, MapPin, AlertTriangle, Map, InfoIcon, X, Clock, Users, Wifi, WifiOff, UserCog } from 'lucide-react';
-import Barchart from '../components/Barchart';
+import DisBarchart from '../components/disBarchart';
 import TransBarchart from '../components/transBar';
 
 const mockOutageData = [
@@ -225,8 +225,9 @@ const LandingPage = () => {
               </button>
             </div>
             <div className="mt-8">
-
+        /* Charts to visualize data*/
         <div className='mb-4'><TransBarchart /></div>
+        <div className='mb-4'><DisBarchart /></div>
       </div>
           </div>
 

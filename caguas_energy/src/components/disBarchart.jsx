@@ -5,7 +5,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 // Register the necessary components with Chart.js
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const Barchart = () => {
+const DisBarchart = () => {
   const [distributionData, setDistributionData] = useState([]);
   const [labels, setLabels] = useState([]);
 
@@ -15,16 +15,17 @@ const Barchart = () => {
       .then((response) => response.json())
       .then((data) => {
         // Extract the period (e.g., "Periodo de 01-01-2022 a 01-31-2022") and district data
-        const period = Object.keys(data)[0];
-        const districtData = data[period];
+        const periodData = data["by_period"]["01-31-2022"]["distribucion"];
 
         // Set the labels to the names of the districts
-        const districtNames = Object.keys(districtData);
-        setLabels(districtNames);
+        const districtNames = Object.keys(periodData);
+        const saidiValues = districtNames.map(
+          (district) => parseFloat(periodData[district]["saidi"]) // Parse SAIDI values
+        );
 
-        // Extract SAIDI values for each district
-        const saifiValues = districtNames.map(district => parseFloat(districtData[district]["SAIDI"]));
-        setDistributionData(saifiValues);
+        // Update state
+        setLabels(districtNames);
+        setDistributionData(saidiValues);
       })
       .catch((error) => console.error('Error fetching distribution data:', error));
   }, []);
@@ -106,4 +107,4 @@ const Barchart = () => {
   );
 };
 
-export default Barchart;
+export default DisBarchart;
