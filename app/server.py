@@ -13,53 +13,53 @@ clean_data = clean_data(temp_data)
 # ------------------------ #
 # OLD APPROACH
 # ------------------------ #
-'''@app.route('/distribution')
-def distribution_index():
-    input_file = '../SAIDI_SAIFI_raw_FY24_Q4_v2.csv'
-    data = read_file(input_file)
-    return_data = {}
-    for k, v in data.items():
-        regex = r"\d{2}-\d{2}-\d{4}"
-        matches = re.finditer(regex, k, re.MULTILINE)
-        dates_list = []
-        for matchNum, match in enumerate(matches, start=1):
-            dates_list.append(match.group())
-        data = v['distribution']
-        district_data = {
-            row[0]: {
-                "SAIDI": row[1],
-                "SAIFI": row[2]
-            }
-            for row in data[2:]
-        }
-        if len(dates_list) > 0:
-            return_data[dates_list[0]] = district_data
-    return jsonify(return_data)
+# @app.route('/distribution')
+# def distribution_index():
+#     input_file = '../SAIDI_SAIFI_raw_FY24_Q4_v2.csv'
+#     data = read_file(input_file)
+#     return_data = {}
+#     for k, v in data.items():
+#         regex = r"\d{2}-\d{2}-\d{4}"
+#         matches = re.finditer(regex, k, re.MULTILINE)
+#         dates_list = []
+#         for matchNum, match in enumerate(matches, start=1):
+#             dates_list.append(match.group())
+#         data = v['distribution']
+#         district_data = {
+#             row[0]: {
+#                 "SAIDI": row[1],
+#                 "SAIFI": row[2]
+#             }
+#             for row in data[2:]
+#         }
+#         if len(dates_list) > 0:
+#             return_data[dates_list[0]] = district_data
+#     return jsonify(return_data)
 
-@app.route('/transmission')
-def transmission_index():
-    input_file = '../SAIDI_SAIFI_raw_FY24_Q4_v2.csv'
-    data = read_file(input_file)
-    return_data = {}
-    for k, v in data.items():
-        regex = r"\d{2}-\d{2}-\d{4}"
-        matches = re.finditer(regex, k, re.MULTILINE)
-        dates_list = []
-        for matchNum, match in enumerate(matches, start=1):
-            dates_list.append(match.group())
-        data = v['transmission']
-        district_data = {
-            row[0]: {
-                "SAIDI": row[1],
-                "SAIFI": row[2]
-            }
-            for row in data[2:]
-        }
-        print(dates_list)
+# @app.route('/transmission')
+# def transmission_index():
+#     input_file = '../SAIDI_SAIFI_raw_FY24_Q4_v2.csv'
+#     data = read_file(input_file)
+#     return_data = {}
+#     for k, v in data.items():
+#         regex = r"\d{2}-\d{2}-\d{4}"
+#         matches = re.finditer(regex, k, re.MULTILINE)
+#         dates_list = []
+#         for matchNum, match in enumerate(matches, start=1):
+#             dates_list.append(match.group())
+#         data = v['transmission']
+#         district_data = {
+#             row[0]: {
+#                 "SAIDI": row[1],
+#                 "SAIFI": row[2]
+#             }
+#             for row in data[2:]
+#         }
+#         print(dates_list)
 
-        if len(dates_list) > 0:
-            return_data[dates_list[0]] = district_data
-    return jsonify(return_data)'''
+#         if len(dates_list) > 0:
+#             return_data[dates_list[0]] = district_data
+#     return jsonify(return_data)
 
 
 
@@ -87,7 +87,7 @@ def todos_indices():
 
 @app.route('/indices/todos/por_periodos')
 def indices_periodos():
-    data = clean_data['by_period']    
+    data = clean_data['by_period']
     # Requerido para incluir valores en español
     response = jsonify(data)
     response.headers['Content-Type'] = 'application/json; charset=utf-8'
@@ -95,11 +95,11 @@ def indices_periodos():
 
 @app.route('/indices/todos/por_regiones')
 def indices_regiones():
-    data = clean_data['by_region']    
+    data = clean_data['by_region']
     # Requerido para incluir valores en español
     response = jsonify(data)
     response.headers['Content-Type'] = 'application/json; charset=utf-8'
     return response
 
 if __name__ == '__main__':
-    app.run(debug=True, port=3000)
+    app.run(debug=True, port=5000)

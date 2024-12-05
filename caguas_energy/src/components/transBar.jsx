@@ -11,7 +11,7 @@ const TransBarchart = () => {
 
   useEffect(() => {
     // Fetch data for distribution
-    fetch('http://127.0.0.1:5000/transmission')
+    fetch('http://127.0.0.1:5000/indices/todos/por_periodos')
       .then((response) => response.json())
       .then((data) => {
         // Extract the period (e.g., "Periodo de 01-01-2022 a 01-31-2022") and district data
