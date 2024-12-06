@@ -225,7 +225,6 @@ const LandingPage = () => {
               </button>
             </div>
             <div className="mt-8">
-        /* Charts to visualize data*/
         <div className='mb-4'><TransBarchart /></div>
         <div className='mb-4'><DisBarchart /></div>
       </div>
