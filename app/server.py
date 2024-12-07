@@ -70,7 +70,7 @@ clean_data = clean_data(temp_data)
 
 @app.route('/')
 def hola_mundito():
-    welcome = "Este API proporciona acceso a datos sobre los índices de confiabilidad eléctrica en Puerto Rico (SAIDI, SAIFI, y CAIFI). Estos índices permiten evaluar la duración y frecuencia de interrupciones del servicio eléctrico."
+    welcome = "Este API proporciona acceso a datos sobre los índices de confiabilidad eléctrica en Puerto Rico (SAIDI, SAIFI, y CAIDI). Estos índices permiten evaluar la duración y frecuencia de interrupciones del servicio eléctrico."
     response = app.response_class(
         response=json.dumps({"message": welcome}, ensure_ascii=False).encode('utf8'),
         mimetype='application/json; charset=utf-8'

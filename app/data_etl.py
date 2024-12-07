@@ -56,7 +56,7 @@ def read_file(filepath):
                     'distribucion': distribution_data
                     }
         return temp_data
-    
+
 def group_data_by_period(data):
     grouped_data = {}
     for k, v in data.items():
@@ -101,3 +101,15 @@ def clean_data(temp_data):
     clean_data['by_period'] = grouped_by_period
     clean_data['by_region'] = grouped_by_region
     return clean_data
+
+
+# Extract overall data
+def overall_data(filepath):
+    """This function extract the overall data from the file"""
+    with open(filepath) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        csv_reader = list(csv_reader)
+        overall = {} # Create a dictionary to store the overall data
+
+        #Starting and endpoint for tables locations
+        sp, ep = 3, 6
