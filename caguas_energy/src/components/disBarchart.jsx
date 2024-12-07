@@ -129,26 +129,31 @@ const DisBarchart = () => {
   };
 
   return (
-    <div className="p-4 bg-gradient-to-r from-purple-700 to-blue-500 rounded-lg shadow-lg">
-      <div className="h-96">
-        <Bar data={data} options={options} />
-      </div>
-      <div className="flex justify-center mt-4">
-        <button
-          onClick={() => handlePeriodChange(-1)}
-          className="px-4 py-2 mx-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700"
-        >
-          Previous
-        </button>
-        <button
-          onClick={() => handlePeriodChange(1)}
-          className="px-4 py-2 mx-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700"
-        >
-          Next
-        </button>
+    <div className="py-8">
+      {/* Wrapper to center the gradient background */}
+      <div className="max-w-4xl mx-auto bg-gradient-to-r from-purple-700 to-blue-500 rounded-lg shadow-lg p-8">
+        {/* Content */}
+        <div className="h-96">
+          <Bar data={data} options={options} />
+        </div>
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={() => handlePeriodChange(-1)}
+            className="px-4 py-2 mx-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700"
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => handlePeriodChange(1)}
+            className="px-4 py-2 mx-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );
+
 };
 
 export default DisBarchart;
